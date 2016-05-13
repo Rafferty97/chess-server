@@ -3,25 +3,12 @@ var router = express.Router();
 
 /* GET /players/ */
 router.get('/', function(req, res, next) {
-  res.send(JSON.stringify({
-    players: [
-      {
-        id: 'vfd89',
-        name: 'Alexander Rafferty',
-        isOnline: true
-      },
-      {
-        id: 'io3no',
-        name: 'Barack Obama',
-        isOnline: false
-      },
-      {
-        id: 'vf239',
-        name: 'Hilary Clinton',
-        isOnline: true
-      }
-    ]
-  }));
+  req.Player.find({}, function (err, players) {
+    if (err) return next(err);
+    res.send(JSON.stringify({
+      players: players
+    }));
+  });
 });
 
 /* GET /players/:playerId */
