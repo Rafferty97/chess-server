@@ -21,13 +21,6 @@ var moves = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[
 
 //used by the utility function for searching possible moves
 var posArr = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
-//GLOBAL DEFAULTS
-
-	//set tile colours here
-	var WHITE_TILE_COLOR = "white";
-	var BLACK_TILE_COLOR = "grey";
-	var TILE_BORDER_COLOR = "black";
-
 
 function posMovesPawn(pieceNo){
 	//no validation of pieceNo yet
@@ -345,63 +338,59 @@ function posMoves(){
 	}
 }
 
-/*
-* Function to generate html for the chessboard
-* @return the chessboard div element
-*/
-function generateBoard() {
-	// Generates each tile, assigns unique ID
-	// Colours tiles in standard pattern
-  var tiles = [];
-	for (var y = 0; y < 8; y++){
-		for (var x = 0; x < 8; x++){
-      // pawn 0, ruck 1, knight 2, bishop 3, queen 4, king 5
-      var text = '';
-      var pieceNum = board[y][x];
-      if (pieceNum != -1) {
-        switch (piece[pieceNum][2]) {
-          case -1:
-            break;
-          case 0:
-            text = "PAWN";
-            break;
-          case 1:
-            text = "RUCK";
-            break;
-          case 2:
-            text = "KNIGHT";
-            break;
-          case 3:
-            text = "BISHOP";
-            break;
-          case 4:
-            text = "QUEEN";
-            break;
-          case 5:
-            text = "KING";
-            break;
+var Board = React.createClass({
+  render: function () {
+  	// Generates each tile, assigns unique ID
+  	// Colours tiles in standard pattern
+    var tiles = [];
+  	for (var y = 0; y < 8; y++) {
+  		for (var x = 0; x < 8; x++) {
+        // pawn 0, ruck 1, knight 2, bishop 3, queen 4, king 5
+        var text = '';
+        var pieceNum = board[y][x];
+        if (pieceNum != -1) {
+          switch (piece[pieceNum][2]) {
+            case -1:
+              break;
+            case 0:
+              text = "PAWN";
+              break;
+            case 1:
+              text = "RUCK";
+              break;
+            case 2:
+              text = "KNIGHT";
+              break;
+            case 3:
+              text = "BISHOP";
+              break;
+            case 4:
+              text = "QUEEN";
+              break;
+            case 5:
+              text = "KING";
+              break;
+          }
         }
-      }
-			// Alternates colours with row/column number
-      var bk = BLACK_TILE_COLOR;
-			if (y%2 - x%2 === 0) {
-				bk = WHITE_TILE_COLOR;
-			}
-			var tile = React.createElement('div', {
-        className: 'tile',
-        id: x + ':' + y,
-        style: {
-          backgroundColor: bk
-        }
-      }, text);
-      // Add the tile to the board
-      tiles.push(tile);
-		}
-	}
+  			// Alternates colours with row/column number
+        var bk = 'black';
+  			if (y%2 - x%2 === 0) {
+  				bk = 'white';
+  			}
+  			var tile = React.createElement('div', {
+          className: 'tile ' + bk,
+          id: x + ':' + y,
+          key: x + ':' + y,
+        }, text);
+        // Add the tile to the board
+        tiles.push(tile);
+  		}
+  	}
 
-  return React.createElement('div', {
-    className: 'board'
-  }, tiles);
-}
+    return React.createElement('div', {
+      className: 'board'
+    }, tiles);
+  }
+});
 
-ReactDOM.render(generateBoard(), document.getElementById('app'));
+ReactDOM.render(React.createElement(Board), document.getElementById('app'));
