@@ -6,6 +6,8 @@ import {
 	INITIAL_BOARD
 } from './constants';
 
+const BOARD = INITIAL_BOARD;
+
 /*
 * Possible moves for pawn
 * @param board the game board
@@ -60,9 +62,6 @@ function posMovesPawn(board, posx, posy){
 */
 function posMovesRuck(board, posx, posy){
 	//need to add teh castle move
-	//black : 1
-	//white : -1
-	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
 
 	var posArr = [[posy,posx],[posy,posx],[posy,posx],[posy,posx]];
@@ -93,9 +92,6 @@ function posMovesRuck(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function posMovesKnight(board, posx, posy){
-	//black : 1
-	//white : -1
-	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
 	var posArr = [[2,1],[2,-1],[-2,-1],[-2,1],[1,2],[1,-2],[-1,2],[-1,-2]];
 	//forwards left
@@ -120,9 +116,6 @@ function posMovesKnight(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function posMovesBishop(board, posx, posy){
-	//black : 1
-	//white : -1
-	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
 	//forward-left forward-right back-left back-right
 	var posArr = [[posy,posx],[posy,posx],[posy,posx],[posy,posx]];
@@ -160,9 +153,6 @@ function posMovesBishop(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function posMovesQueen(board, posx, posy){
-	//black : -1
-	//white : 1
-	var player = (board[posy][posx] < BLACK) ? 1:-1;
 	var moves = [];
 	//up down left right
 	moves.concat(posMovesRuck(board, posx, posy));
@@ -179,16 +169,7 @@ function posMovesQueen(board, posx, posy){
 */
 function posMovesKing(board, posx, posy){
 	//need to add castling
-	//black : -1
-	//white : 1
-	var player = (board[posy][posx] < BLACK) ? 1:-1;
 	var moves = [];
-
-	//-1-1   0-1   1 1
-
-	//-1 0         1 0
-
-	//-1 1   0 1   1 1
 
 	for(var y = -1; y<2; y++){
 		for(var x = -1; x < 2; x++){
@@ -214,9 +195,6 @@ function posMovesKing(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function searchLines(board, posx, posy, posArr){
-	//black : 1
-	//white : -1
-	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
 	for(var j = 0; j < 4;j++){
 		if(boundaries(posArr[j][0],posArr[j][1])){
