@@ -18,6 +18,7 @@ module.exports = function ()
   return function (req, res, next) {
     req.mongo = db;
     req.Player = require('./models/player');
+    req.Game = require('./models/game');
     next();
   };
 };

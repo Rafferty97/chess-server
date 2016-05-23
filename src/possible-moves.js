@@ -1,20 +1,10 @@
-//THESE CONSTANTS SHOULD BE IMPORTED FROM AN EXTERNAL CONSTANTS FILE
-
-const EMPTY = -1;
-const [ PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING ] = [0, 1, 2, 3, 4, 5];
-const [ WHITE, BLACK ] = [0, 6];
-const pieceType = (n) => (n == -1 ? -1 : n % 6);
-const pieceColour = (n) => (n - pieceType(n));
-const BOARD = [
-	[ BLACK + RUCK, BLACK + KNIGHT, BLACK + BISHOP, BLACK + QUEEN, BLACK + KING, BLACK + BISHOP, BLACK + KNIGHT, BLACK + RUCK ],
-	[ BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN ],
-	[ EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY ],
-	[ EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY ],
-	[ EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY ],
-	[ EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY ],
-	[ WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN ],
-	[ WHITE + RUCK, WHITE + KNIGHT, WHITE + BISHOP, WHITE + QUEEN, WHITE + KING, WHITE + BISHOP, WHITE + KNIGHT, WHITE + RUCK ]
-];
+import {
+	EMPTY,
+	PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING,
+	WHITE, BLACK,
+	pieceType, pieceColour,
+	INITIAL_BOARD
+} from './constants';
 
 /*
 * Possible moves for pawn
@@ -29,7 +19,7 @@ function posMovesPawn(board, posx, posy){
 	//white : -1
 	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
-	
+
 	//within bounds
 	if(boundaries(posy+player,posx)){
 		//Forward movements
@@ -55,7 +45,7 @@ function posMovesPawn(board, posx, posy){
 			//check if its an opponent piece
 			if(p != -1 && capture(board[posy][posx],p)){
 				moves.push([posy + player,posx + x[i]]);
-			
+
 			}
 		}
 	}
@@ -74,7 +64,7 @@ function posMovesRuck(board, posx, posy){
 	//white : -1
 	var player = (board[posy][posx] < BLACK) ? -1:1;
 	var moves = [];
-	
+
 	var posArr = [[posy,posx],[posy,posx],[posy,posx],[posy,posx]];
 	for(var i = 1; i < 8; i++){
 		//increment search
@@ -358,7 +348,7 @@ function posMoves(board){
 			switch(pieceType(board[y][x])) {
 				case PAWN:
 					moves[board[y][x]] = posMovesPawn(board,x,y);
-					
+
 					break;
 				case RUCK:
 					moves[board[y][x]] = posMovesRuck(board,x,y);

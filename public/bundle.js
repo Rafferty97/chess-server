@@ -20207,6 +20207,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _constants = __webpack_require__(169);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20215,24 +20217,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var EMPTY = -1;
-	var PAWN = 0;
-	var RUCK = 1;
-	var KNIGHT = 2;
-	var BISHOP = 3;
-	var QUEEN = 4;
-	var KING = 5;
-	var WHITE = 0;
-	var BLACK = 6;
-
-	var pieceType = function pieceType(n) {
-	  return n == -1 ? -1 : n % 6;
-	};
-	var pieceColour = function pieceColour(n) {
-	  return n - pieceType(n);
-	};
-
-	var INITIAL_BOARD = [[BLACK + RUCK, BLACK + KNIGHT, BLACK + BISHOP, BLACK + QUEEN, BLACK + KING, BLACK + BISHOP, BLACK + KNIGHT, BLACK + RUCK], [BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN], [WHITE + RUCK, WHITE + KNIGHT, WHITE + BISHOP, WHITE + QUEEN, WHITE + KING, WHITE + BISHOP, WHITE + KNIGHT, WHITE + RUCK]];
+	var INITIAL_BOARD = [[_constants.BLACK + _constants.RUCK, _constants.BLACK + _constants.KNIGHT, _constants.BLACK + _constants.BISHOP, _constants.BLACK + _constants.QUEEN, _constants.BLACK + _constants.KING, _constants.BLACK + _constants.BISHOP, _constants.BLACK + _constants.KNIGHT, _constants.BLACK + _constants.RUCK], [_constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN], [_constants.WHITE + _constants.RUCK, _constants.WHITE + _constants.KNIGHT, _constants.WHITE + _constants.BISHOP, _constants.WHITE + _constants.QUEEN, _constants.WHITE + _constants.KING, _constants.WHITE + _constants.BISHOP, _constants.WHITE + _constants.KNIGHT, _constants.WHITE + _constants.RUCK]];
 
 	var Board = function (_Component) {
 	  _inherits(Board, _Component);
@@ -20258,25 +20243,25 @@
 	        for (var x = 0; x < 8; x++) {
 	          var text = '';
 	          var piece = board[y][x];
-	          switch (pieceType(piece)) {
-	            case EMPTY:
+	          switch ((0, _constants.pieceType)(piece)) {
+	            case _constants.EMPTY:
 	              break;
-	            case PAWN:
+	            case _constants.PAWN:
 	              text = 'PAWN';
 	              break;
-	            case RUCK:
+	            case _constants.RUCK:
 	              text = 'RUCK';
 	              break;
-	            case KNIGHT:
+	            case _constants.KNIGHT:
 	              text = 'KNIGHT';
 	              break;
-	            case BISHOP:
+	            case _constants.BISHOP:
 	              text = 'BISHOP';
 	              break;
-	            case QUEEN:
+	            case _constants.QUEEN:
 	              text = 'QUEEN';
 	              break;
-	            case KING:
+	            case _constants.KING:
 	              text = 'KING';
 	              break;
 	          }
@@ -20306,6 +20291,39 @@
 	}(_react.Component);
 
 	exports.default = Board;
+
+/***/ },
+/* 169 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var EMPTY = exports.EMPTY = -1;
+	var PAWN = 0;
+	var RUCK = 1;
+	var KNIGHT = 2;
+	var BISHOP = 3;
+	var QUEEN = 4;
+	var KING = 5;
+	exports.PAWN = PAWN;
+	exports.RUCK = RUCK;
+	exports.KNIGHT = KNIGHT;
+	exports.BISHOP = BISHOP;
+	exports.QUEEN = QUEEN;
+	exports.KING = KING;
+	var WHITE = 0;
+	var BLACK = 6;
+	exports.WHITE = WHITE;
+	exports.BLACK = BLACK;
+	var pieceType = exports.pieceType = function pieceType(n) {
+	  return n == -1 ? -1 : n % 6;
+	};
+	var pieceColour = exports.pieceColour = function pieceColour(n) {
+	  return n - pieceType(n);
+	};
 
 /***/ }
 /******/ ]);
