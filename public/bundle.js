@@ -20217,8 +20217,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var INITIAL_BOARD = [[_constants.BLACK + _constants.RUCK, _constants.BLACK + _constants.KNIGHT, _constants.BLACK + _constants.BISHOP, _constants.BLACK + _constants.QUEEN, _constants.BLACK + _constants.KING, _constants.BLACK + _constants.BISHOP, _constants.BLACK + _constants.KNIGHT, _constants.BLACK + _constants.RUCK], [_constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN, _constants.BLACK + _constants.PAWN], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY, _constants.EMPTY], [_constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN, _constants.WHITE + _constants.PAWN], [_constants.WHITE + _constants.RUCK, _constants.WHITE + _constants.KNIGHT, _constants.WHITE + _constants.BISHOP, _constants.WHITE + _constants.QUEEN, _constants.WHITE + _constants.KING, _constants.WHITE + _constants.BISHOP, _constants.WHITE + _constants.KNIGHT, _constants.WHITE + _constants.RUCK]];
-
 	var Board = function (_Component) {
 	  _inherits(Board, _Component);
 
@@ -20228,7 +20226,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Board).call(this, props));
 
 	    _this.state = {
-	      board: INITIAL_BOARD
+	      board: _constants.INITIAL_BOARD
 	    };
 	    return _this;
 	  }
@@ -20299,7 +20297,7 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 	var EMPTY = exports.EMPTY = -1;
 	var PAWN = 0;
@@ -20319,11 +20317,12 @@
 	exports.WHITE = WHITE;
 	exports.BLACK = BLACK;
 	var pieceType = exports.pieceType = function pieceType(n) {
-	  return n == -1 ? -1 : n % 6;
+		return n == -1 ? -1 : n % 6;
 	};
 	var pieceColour = exports.pieceColour = function pieceColour(n) {
-	  return n - pieceType(n);
+		return n - pieceType(n);
 	};
+	var INITIAL_BOARD = exports.INITIAL_BOARD = [[BLACK + RUCK, BLACK + KNIGHT, BLACK + BISHOP, BLACK + QUEEN, BLACK + KING, BLACK + BISHOP, BLACK + KNIGHT, BLACK + RUCK], [BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN, BLACK + PAWN], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY], [WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN, WHITE + PAWN], [WHITE + RUCK, WHITE + KNIGHT, WHITE + BISHOP, WHITE + QUEEN, WHITE + KING, WHITE + BISHOP, WHITE + KNIGHT, WHITE + RUCK]];
 
 /***/ }
 /******/ ]);
