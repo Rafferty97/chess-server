@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-const EMPTY = -1;
-const [ PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING ] = [0, 1, 2, 3, 4, 5];
-const [ WHITE, BLACK ] = [0, 6];
-const pieceType = (n) => (n == -1 ? -1 : n % 6);
-const pieceColour = (n) => (n - pieceType(n));
+import {
+	EMPTY,
+	PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING,
+	WHITE, BLACK,
+	pieceType, pieceColour
+} from './constants';
 
 const INITIAL_BOARD = [
 	[ BLACK + RUCK, BLACK + KNIGHT, BLACK + BISHOP, BLACK + QUEEN, BLACK + KING, BLACK + BISHOP, BLACK + KNIGHT, BLACK + RUCK ],
