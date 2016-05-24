@@ -4,7 +4,8 @@ import {
 	EMPTY,
 	PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING,
 	WHITE, BLACK,
-  pieceType
+  pieceType,
+	CHESS_PIECE_SRC, CHESS_PIECE_FILETYPE
 } from './constants';
 
 export default class BoardTile extends Component {
@@ -29,29 +30,7 @@ export default class BoardTile extends Component {
 
   render() {
     const { colour, piece } = this.props;
-    let text = '';
-    switch (pieceType(piece)) {
-      case EMPTY:
-        break;
-      case PAWN:
-        text = 'PAWN';
-        break;
-      case RUCK:
-        text = 'RUCK';
-        break;
-      case KNIGHT:
-        text = 'KNIGHT';
-        break;
-      case BISHOP:
-        text = 'BISHOP';
-        break;
-      case QUEEN:
-        text = 'QUEEN';
-        break;
-      case KING:
-        text = 'KING';
-        break;
-    }
+		const src = CHESS_PIECE_SRC + piece + CHESS_PIECE_FILETYPE;
     let className = 'tile ' + colour;
     if (this.state.hover) className += ' hover';
     if (this.props.selected) className += ' selected';
@@ -62,7 +41,7 @@ export default class BoardTile extends Component {
         onMouseOut={this.handleMouseOut.bind(this)}
         onClick={this.props.onClick}
         >
-        {text}
+        {piece == EMPTY ? null : <img src={src} />}
       </div>
     );
   }
