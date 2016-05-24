@@ -7,22 +7,25 @@ import {
   EMPTY, INITIAL_BOARD
 } from './constants';
 
-let state = {
+let gameState = {
   board: JSON.parse(JSON.stringify(INITIAL_BOARD))
 };
 
 function movePiece(x1, y1, x2, y2) {
-  state.board[y2][x2] = state.board[y1][x1];
-  state.board[y1][x1] = EMPTY;
+  const s = gameState;
+  s.board[y2][x2] = s.board[y1][x1];
+  s.board[y1][x1] = EMPTY;
   rerender();
 }
 
+/* Rerenders the game with an updated state */
 function rerender() {
-  ReactDOM.render(<App state={state}/>, document.getElementById('app'));
+  const props = {
+    state: gameState,
+    movePiece
+  };
+  ReactDOM.render(<App {...props}/>, document.getElementById('app'));
 }
 
-setTimeout(function() {
-  movePiece(3, 6, 3, 4);
-}, 2000);
-
+/* Initial render */
 rerender();

@@ -19,7 +19,17 @@ class Board extends Component {
 	}
 
 	handleClick(x, y) {
-		this.state.selectedTile = {x, y};
+		const seltile = this.state.selectedTile;
+		if (seltile.x == -1) {
+			this.setState({
+				selectedTile: {x, y}
+			});
+		} else {
+			this.setState({
+				selectedTile: {x: -1, y: -1}
+			});
+			this.props.movePiece(seltile.x, seltile.y, x, y);
+		}
 	}
 
   render() {
@@ -29,6 +39,7 @@ class Board extends Component {
   		for (var x = 0; x < 8; x++) {
         let text = '';
 				const piece = board[y][x];
+				const selected = (this.state.selectedTile.x == x) && (this.state.selectedTile.y == y);
   			// Alternates colours with row/column number
         var bk = 'black';
   			if (y%2 - x%2 === 0) {
@@ -40,6 +51,7 @@ class Board extends Component {
 						colour={bk}
 						key={x + ':' + y}
 						piece={piece}
+						selected={selected}
 						onClick={this.handleClick.bind(this, x, y)}
 						/>
 				);
