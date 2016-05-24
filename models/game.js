@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var boardSchema = mongoose.Schema({
-  tiles: [[Number]]
+  tiles: [Number]
 });
 
 var gameSchema = mongoose.Schema({

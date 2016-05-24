@@ -3,18 +3,18 @@ var router = express.Router();
 var async = require('async');
 var mongodb = require('mongodb');
 
-var validateMove = require('../possible-moves.js').validateMove;
-
 var INITIAL_BOARD = [
-  [7, 8, 9, 10, 11, 9, 8, 7],
-  [6, 6, 6, 6, 6, 6, 6, 6],
-  [-1, -1, -1, -1, -1, -1, -1, -1],
-  [-1, -1, -1, -1, -1, -1, -1, -1],
-  [-1, -1, -1, -1, -1, -1, -1, -1],
-  [-1, -1, -1, -1, -1, -1, -1, -1],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 2, 3, 4, 5, 3, 2, 1]
+  7, 8, 9, 10, 11, 9, 8, 7,
+  6, 6, 6, 6, 6, 6, 6, 6,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  1, 2, 3, 4, 5, 3, 2, 1
 ];
+
+var move = require('./games/move');
 
 /* GET /games/ */
 /* Returns all games */
@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 /* GET /games/:id */
 /* Returns the specified games */
 router.get('/:id', function(req, res, next) {
-  req.Game.find({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
+  req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'
     });
@@ -53,6 +53,8 @@ router.post('/', function(req, res, next) {
     ],
     currentTurn: 'white'
   });
+  console.log(reqPlayer);
+  console.log(otherPlayer);
   if (reqPlayer == otherPlayer) {
     next({
       status: 400,
@@ -114,16 +116,6 @@ router.post('/:id/accept', function(req, res, next) {
   });
 });
 
-/* POST /games/:id/move */
-/* Makes a move */
-router.post('/:id/move', function(req, res, next) {
-  var fromx = parseInt(req.body.fromx);
-  var fromy = parseInt(req.body.fromy);
-  var tox = parseInt(req.body.tox);
-  var toy = parseInt(req.body.toy);
-  res.send(JSON.stringify({
-    valid: validateMove(INITIAL_BOARD, fromy, fromx, toy, tox)
-  }));
-});
+router.post('/:id/move', move);
 
 module.exports = router;
