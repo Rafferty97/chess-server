@@ -1,3 +1,5 @@
+var mongodb = require('mongodb');
+
 var possibleMoves = require('../../possible-moves.js');
 var validateMove = possibleMoves.validateMove;
 
@@ -18,11 +20,12 @@ function array2Dto1D(arr) {
 }
 
 module.exports = function(req, res, next) {
+  var gameId = req.params.id;
   var fromx = parseInt(req.body.fromx);
   var fromy = parseInt(req.body.fromy);
   var tox = parseInt(req.body.tox);
   var toy = parseInt(req.body.toy);
-  req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
+  req.Game.findOne({_id: new mongodb.ObjectID(gameId)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'
     });
@@ -55,7 +58,6 @@ module.exports = function(req, res, next) {
     // Calculate the new board state
     board[toy][tox] = board[fromy][fromx];
     board[fromy][fromx] = -1;
-    console.log(board);
     // Update the board
     req.Game.update({
       _id: new mongodb.ObjectID(gameId)
@@ -64,6 +66,9 @@ module.exports = function(req, res, next) {
         boardHistory: {
           tiles: array2Dto1D(board)
         }
+      },
+      $set: {
+        currentTurn: (game.currentTurn == 'white' ? 'black' : white)
       }
     }, function(err, result) {
       if (err || (result.nModified === 0)) {

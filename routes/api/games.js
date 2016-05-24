@@ -14,8 +14,6 @@ var INITIAL_BOARD = [
   1, 2, 3, 4, 5, 3, 2, 1
 ];
 
-var move = require('./games/move');
-
 /* GET /games/ */
 /* Returns all games */
 router.get('/', function(req, res, next) {
@@ -116,6 +114,6 @@ router.post('/:id/accept', function(req, res, next) {
   });
 });
 
-router.post('/:id/move', move);
+router.post('/:id/move', require('./games/move'));
 
 module.exports = router;
