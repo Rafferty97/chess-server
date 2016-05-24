@@ -5,7 +5,8 @@ import {
 	PAWN, RUCK, KNIGHT, BISHOP, QUEEN, KING,
 	WHITE, BLACK,
 	pieceType, pieceColour,
-	INITIAL_BOARD
+	INITIAL_BOARD, CHESS_PIECE_SRC,
+	CHESS_PIECE_FILETYPE
 } from './constants';
 
 class Board extends Component {
@@ -19,6 +20,7 @@ class Board extends Component {
   render() {
 		const { board } = this.state;
     var tiles = [];
+
   	for (var y = 0; y < 8; y++) {
   		for (var x = 0; x < 8; x++) {
         let text = '';
@@ -50,8 +52,11 @@ class Board extends Component {
   			if (y%2 - x%2 === 0) {
   				bk = 'white';
   			}
+			
+			//assign chess piece or empty
+			var imgfile = piece === -1 ? "":CHESS_PIECE_SRC + piece + CHESS_PIECE_FILETYPE;
         // Add the tile to the board
-        tiles.push(<div className={'tile ' + bk} key={x + ':' + y}>{text}</div>);
+        tiles.push(<div className={'tile ' + bk} key={x + ':' + y}>{<img src={imgfile} alt=""></img>}</div>);
   		}
   	}
 
