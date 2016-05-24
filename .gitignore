@@ -1,3 +1,7 @@
 /node_modules/
 /data/
+<<<<<<< HEAD
 cmd.exe
+=======
+/public/bundle.js
+>>>>>>> origin/master

@@ -54,9 +54,9 @@ class Board extends Component {
   			}
 			
 			//assign chess piece or empty
-			var imgfile = piece === -1 ? "":CHESS_PIECE_SRC + piece + CHESS_PIECE_FILETYPE;
+			//var imgfile = piece === -1 ? "":CHESS_PIECE_SRC + piece + CHESS_PIECE_FILETYPE;
         // Add the tile to the board
-        tiles.push(<div className={'tile ' + bk} key={x + ':' + y}>{<img src={imgfile} alt=""></img>}</div>);
+        //tiles.push(<div className={'tile ' + bk} key={x + ':' + y}>{<img src={imgfile} alt=""></img>}</div>);
   		}
   	}
 

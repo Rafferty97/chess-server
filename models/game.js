@@ -1,11 +1,16 @@
 var mongoose = require('mongoose');
 
+var boardSchema = mongoose.Schema({
+  tiles: [Number]
+});
+
 var gameSchema = mongoose.Schema({
   whitePlayer: String,
   blackPlayer: String,
   whiteAccepted: Boolean,
   blackAccepted: Boolean,
-  turnNumber: Number
+  boardHistory: [boardSchema],
+  currentTurn: String
 });
 
 var Game = mongoose.model('Game', gameSchema);

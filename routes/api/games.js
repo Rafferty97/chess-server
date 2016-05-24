@@ -3,6 +3,17 @@ var router = express.Router();
 var async = require('async');
 var mongodb = require('mongodb');
 
+var INITIAL_BOARD = [
+  7, 8, 9, 10, 11, 9, 8, 7,
+  6, 6, 6, 6, 6, 6, 6, 6,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  -1, -1, -1, -1, -1, -1, -1, -1,
+  0, 0, 0, 0, 0, 0, 0, 0,
+  1, 2, 3, 4, 5, 3, 2, 1
+];
+
 /* GET /games/ */
 /* Returns all games */
 router.get('/', function(req, res, next) {
@@ -14,17 +25,31 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* GET /games/:id */
+/* Returns the specified games */
+router.get('/:id', function(req, res, next) {
+  req.Game.find({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
+    if (err || (game === null)) return next({
+      status: 404, message: 'Game does not exist'
+    });
+    res.send(JSON.stringify(game));
+  });
+});
+
 /* POST /games/ */
 /* Creates a new game request */
 router.post('/', function(req, res, next) {
-  var reqPlayer = req.body.requestingPlayer;
+  var reqPlayer = req.body.playerId;
   var otherPlayer = req.body.otherPlayer;
   var game = new req.Game({
     whitePlayer: new mongodb.ObjectID(reqPlayer),
     blackPlayer: new mongodb.ObjectID(otherPlayer),
     whiteAccepted: true,
     blackAccepted: false,
-    turnNumber: 0
+    boardHistory: [
+      { tiles: INITIAL_BOARD }
+    ],
+    currentTurn: 'white'
   });
   if (reqPlayer == otherPlayer) {
     next({
@@ -85,6 +110,12 @@ router.post('/:id/accept', function(req, res, next) {
       }));
     }
   });
+});
+
+/* POST /games/:id/move */
+/* Makes a move */
+router.post('/:id/move', function(req, res, next) {
+  // TODO
 });
 
 module.exports = router;
