@@ -112,4 +112,10 @@ router.post('/:id/accept', function(req, res, next) {
   });
 });
 
+/* POST /games/:id/move */
+/* Makes a move */
+router.post('/:id/move', function(req, res, next) {
+  // TODO
+});
+
 module.exports = router;

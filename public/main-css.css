@@ -92,6 +92,8 @@ body {
 	background: linear-gradient(#d8e3f1, #b4c9e4);
 }
 
+/* CHESS BOARD */
+
 .board {
 	width: 640px;
 	height: 640px;
@@ -119,6 +121,22 @@ body {
 	background-color: #404040;
 	color: white;
 }
+
+.hover.tile {
+	border: 4px solid #808080;
+	width: 52px;
+	height: 52px;
+	line-height: 48px;
+}
+
+.selected.tile {
+	border: 4px solid #60b060;
+	width: 52px;
+	height: 52px;
+	line-height: 48px;
+}
+
+/*****/
 
 .footer {
 	height: 100px;
