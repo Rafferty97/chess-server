@@ -45,14 +45,14 @@ function posMovesPawn(board, posx, posy){
 		if(boundaries(posy+player,posx+x[i])){
 			var p = board[posy + player][posx + x[i]];
 			//check if its an opponent piece
-			if(p != -1 && capture(board[posy][posx],p)){
+			if(p != -1 && captureOrEmpty(board[posy][posx],p)){
 				moves.push([posy + player,posx + x[i]]);
-
 			}
 		}
 	}
 	return moves;
 }
+
 /*
 * Possible moves for Ruck
 * @param board the game board
@@ -61,27 +61,12 @@ function posMovesPawn(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function posMovesRuck(board, posx, posy){
-	//need to add teh castle move
+	// TODO: Add the castle move
 	var moves = [];
-
-	var posArr = [[posy,posx],[posy,posx],[posy,posx],[posy,posx]];
-	for(var i = 1; i < 8; i++){
-		//increment search
-		//forwards backwards left right
-		++posArr[0][0];
-		--posArr[1][0];
-		--posArr[2][1];
-		++posArr[3][1];
-
-		var thisMove = searchLines(board, posx, posy, posArr);
-		//if no further moves found
-		//stop searching
-		if(thisMove.length === 0){
-			break;
-		}else {
-			moves.concat(thisMove);
-		}
-	}
+	moves = moves.concat(searchLines(board, posx, posy, -1,  0));
+	moves = moves.concat(searchLines(board, posx, posy,  1,  0));
+	moves = moves.concat(searchLines(board, posx, posy,  0, -1));
+	moves = moves.concat(searchLines(board, posx, posy,  0,  1));
 	return moves;
 }
 /*
@@ -97,17 +82,18 @@ function posMovesKnight(board, posx, posy){
 	//forwards left
 	var y = 0;
 	var x = 0;
-	for(var i = 0; i < 8; i++){
+	for (var i = 0; i < 8; i++){
 		y = posy + posArr[i][0];
 		x = posx + posArr[i][1];
-		if(boundaries(y,x)){
-			if(capture(board[posy][posx],board[y][x])){
+		if (boundaries(y,x)) {
+			if (captureOrEmpty(board[posy][posx],board[y][x])) {
 				moves.push([y,x]);
 			}
 		}
 	}
 	return moves;
 }
+
 /*
 * Possible moves for Bishop
 * @param board the game board
@@ -117,34 +103,13 @@ function posMovesKnight(board, posx, posy){
 */
 function posMovesBishop(board, posx, posy){
 	var moves = [];
-	//forward-left forward-right back-left back-right
-	var posArr = [[posy,posx],[posy,posx],[posy,posx],[posy,posx]];
-	for(var i = 1; i < 8; i++){
-		//if all searched terminated, stop iteration;
-		//increment search
-		//forward-left forward-right back-left back-right
-		++posArr[0][0];
-		--posArr[0][1];
-
-		++posArr[1][0];
-		++posArr[1][1];
-
-		--posArr[2][0];
-		--posArr[2][1];
-
-		--posArr[3][0];
-		++posArr[3][1];
-		var thisMove = searchLines(board, posx, posy, posArr);
-		//if no further moves found
-		//stop searching
-		if(thisMove.length === 0){
-			break;
-		}else {
-			moves.concat(thisMove);
-		}
-	}
+	moves = moves.concat(searchLines(board, posx, posy, -1, -1));
+	moves = moves.concat(searchLines(board, posx, posy,  1, -1));
+	moves = moves.concat(searchLines(board, posx, posy, -1,  1));
+	moves = moves.concat(searchLines(board, posx, posy,  1,  1));
 	return moves;
 }
+
 /*
 * Possible moves for Queen
 * @param board the game board
@@ -155,11 +120,12 @@ function posMovesBishop(board, posx, posy){
 function posMovesQueen(board, posx, posy){
 	var moves = [];
 	//up down left right
-	moves.concat(posMovesRuck(board, posx, posy));
+	moves = moves.concat(posMovesRuck(board, posx, posy));
 	//forward-left forward-right back-left back-right
-	moves.concat(posMovesBishop(board, posx, posy));
+	moves = moves.concat(posMovesBishop(board, posx, posy));
 	return moves;
 }
+
 /*
 * Possible moves for King
 * @param board the game board
@@ -168,24 +134,20 @@ function posMovesQueen(board, posx, posy){
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
 function posMovesKing(board, posx, posy){
-	//need to add castling
+	// need to add castling
 	var moves = [];
-
-	for(var y = -1; y<2; y++){
-		for(var x = -1; x < 2; x++){
-			//ignore the current position
-			if(!(x==0 && y==0)){
-				//boundary check
-				if(boundaries(posy+y,posx+x)){
-					if(capture(board[posy][posx],board[posy + y][posx+x])){
-						moves.push([posy + y,posx + x]);
-					}
-				}
-			}
+	for (var y = -1; y<2; y++) {
+		for (var x = -1; x < 2; x++) {
+			// ignore the current position
+			if (x===0 && y===0) continue;
+			if (!boundaries(posy+y, posx+x)) continue;
+			if (!captureOrEmpty(board[posy][posx], board[posy+y][posx+x])) continue;
+			moves.push([posy+y, posx+x]);
 		}
 	}
 	return moves;
 }
+
 /*
 * This is a utility function to test the validity of 4 tiles for a given piece
 * @param posArr a 4x2 array containing the coords for tiles to test
@@ -194,17 +156,20 @@ function posMovesKing(board, posx, posy){
 * @param posy the y coord
 * @return an array of possible moves in the form [[y,x],[y,x]..] or [] if no moves possible
 */
-function searchLines(board, posx, posy, posArr){
+function searchLines(board, posx, posy, relx, rely){
 	var moves = [];
-	for(var j = 0; j < 4;j++){
-		if(boundaries(posArr[j][0],posArr[j][1])){
-			var p = board[posArr[j][0]][posArr[j][1]];
-			//tile is empty, add continue searching
-			//tile is opponents piece, add and stop searching
-			if(capture(board[posy][posx],p)){
-				moves.push([posArr[j][0],posArr[j][1]]);
-			}
-		}
+	var x = posx + relx, y = posy + rely;
+  while (boundaries(y, x)) {
+		var p = board[y][x];
+		// if tile is own piece, terminate search
+		if (!captureOrEmpty(board[posy][posx], p))
+		  return moves;
+		moves.push([y, x]);
+		// tile is opponents piece, terminate search
+		if (p != EMPTY) return moves;
+		// step
+		x += relx;
+		y += rely;
 	}
 	return moves;
 }
@@ -213,10 +178,10 @@ function searchLines(board, posx, posy, posArr){
 * utility function for testing boundaries
 * @param y y coord
 * @param x x coord
-* @return true or false
+* @return true iff coordinate is within board boundaries
 */
-function boundaries(y,x){
-	return (x < 8 && y < 8 && x > -1 && y > -1)
+function boundaries(y, x) {
+	return (x < 8 && y < 8 && x > -1 && y > -1);
 }
 
 /*
@@ -225,8 +190,8 @@ function boundaries(y,x){
 * @param thatNumber the tile to be captured
 * @return true or false
 */
-function capture(thisNumber, thatNumber){
-	return (thatNumber === -1 || pieceColour(thisNumber) != pieceColour(thatNumber));
+function captureOrEmpty(thisNumber, thatNumber) {
+	return (thatNumber == EMPTY || pieceColour(thisNumber) != pieceColour(thatNumber));
 }
 
 
@@ -237,7 +202,7 @@ function capture(thisNumber, thatNumber){
 * @param y the y index
 * @return the array of possible moves for this piece
 */
-function possibleMove(board, x, y){
+export function possibleMove(board, x, y){
 	var moves = [];
 	//If empty tile an empty array is returned
 	if(board[y][x] == -1){
@@ -277,7 +242,7 @@ function possibleMove(board, x, y){
 * @param toX the coord after moving
 * @return true or false if move is valid or not
 */
-function validateMove(board, fromY, fromX, toY, toX){
+export function validateMove(board, fromY, fromX, toY, toX){
 	var moves = possibleMove(board,fromX,fromY);
 	for(var i =0; i < moves.length;i++){
 		//if move is valid

@@ -129,6 +129,30 @@ body {
 	padding: 13px;
 }
 
+.available.white.tile {
+	background: #a0f0a0;
+	border: 4px solid #90e090;
+	padding: 13px;
+}
+
+.available.black.tile {
+	background: #207020;
+	border: 4px solid #106010;
+	padding: 13px;
+}
+
+.kill.white.tile {
+	background: #f0a0a0;
+	border: 4px solid #e09090;
+	padding: 13px;
+}
+
+.kill.black.tile {
+	background: #702020;
+	border: 4px solid #601010;
+	padding: 13px;
+}
+
 /*****/
 
 .footer {
