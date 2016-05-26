@@ -34,6 +34,8 @@ export default class BoardTile extends Component {
     let className = 'tile ' + colour;
     if (this.state.hover) className += ' hover';
     if (this.props.selected) className += ' selected';
+    if (this.props.available && piece == EMPTY) className += ' available';
+		if (this.props.available && piece != EMPTY) className += ' kill';
     return (
       <div
         className={className}

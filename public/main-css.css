@@ -103,13 +103,10 @@ body {
 }
 
 .tile {
-	width: 60px;
-	height: 60px;
 	float: left;
-	text-align: center;
-	padding: 10px;
-	font-size: 14px;
-	line-height: 56px;
+	width: 46px;
+	height: 46px;
+	padding: 17px;
 }
 
 .white.tile {
@@ -124,16 +121,36 @@ body {
 
 .hover.tile {
 	border: 4px solid #808080;
-	width: 52px;
-	height: 52px;
-	line-height: 48px;
+	padding: 13px;
 }
 
 .selected.tile {
 	border: 4px solid #60b060;
-	width: 52px;
-	height: 52px;
-	line-height: 48px;
+	padding: 13px;
+}
+
+.available.white.tile {
+	background: #a0f0a0;
+	border: 4px solid #90e090;
+	padding: 13px;
+}
+
+.available.black.tile {
+	background: #207020;
+	border: 4px solid #106010;
+	padding: 13px;
+}
+
+.kill.white.tile {
+	background: #f0a0a0;
+	border: 4px solid #e09090;
+	padding: 13px;
+}
+
+.kill.black.tile {
+	background: #702020;
+	border: 4px solid #601010;
+	padding: 13px;
 }
 
 /*****/

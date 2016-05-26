@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 /* GET /games/:id */
 /* Returns the specified games */
 router.get('/:id', function(req, res, next) {
-  req.Game.find({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
+  req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'
     });
@@ -51,6 +51,8 @@ router.post('/', function(req, res, next) {
     ],
     currentTurn: 'white'
   });
+  console.log(reqPlayer);
+  console.log(otherPlayer);
   if (reqPlayer == otherPlayer) {
     next({
       status: 400,
@@ -112,10 +114,6 @@ router.post('/:id/accept', function(req, res, next) {
   });
 });
 
-/* POST /games/:id/move */
-/* Makes a move */
-router.post('/:id/move', function(req, res, next) {
-  // TODO
-});
+router.post('/:id/move', require('./games/move'));
 
 module.exports = router;
