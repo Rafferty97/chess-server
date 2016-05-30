@@ -97,7 +97,8 @@ a{
 }
 
 .content_wrapper {
-	width:1450px;
+	min-width:1000px;
+	max-width:1450px;
 	height:100%;
 	margin:auto;
 	
@@ -109,7 +110,8 @@ a{
 	background-color:white;
 }
 .textcontainer {
-	width:830px;
+	min-width:380px;
+	max-width:830px;
 	margin-left:10px;
 	margin-right:10px;
 	background-color:yellow;

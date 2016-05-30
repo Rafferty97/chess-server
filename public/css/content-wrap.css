@@ -1,0 +1,87 @@
+h1 {
+	margin:0px;
+}
+
+.content-wrap {
+	margin:0px 5% 0px 5%;
+	max-width:1450px;
+}
+
+.sideandtext-wrap {
+	display:flex;
+	flex-flow:row wrap;
+	justify-content:space-between;
+	
+}
+
+.side-bar, .text-wrap {
+	flex:1 100%;
+}
+
+/*small screens*/
+@media all and (max-width:599px){
+	.text-wrap{
+		padding:5px;;
+	}
+	
+}
+/*medium screen*/
+@media all and (min-width:600px){
+	.side-bar{flex:1 auto;}
+	.text-wrap{
+		padding:5%;
+	}
+	.text-wrap{order:1;}
+	.side-bar1 {order:2;}
+	.side-bar2 {order:3;}
+}
+
+/*large screen*/
+@media all and (min-width:1100px){
+	.text-wrap{
+		flex:2 0px;
+	}
+	.side-bar{
+		flex:1 0px;
+	}
+	
+	.text-wrap{
+		padding:5%;
+	}
+
+	.side-bar1 {order:1;}
+	.text-wrap{order:2;}
+	.side-bar2 {order:3;}
+}
+
+.side-bar {
+	background-color:brown;
+}
+
+.text-wrap {
+	background-color:grey;
+}
+
+.controls{
+	padding:10px;
+	min-width:100px;
+}
+.game {
+	background-color:red;
+}
+
+.player{
+	background-color:green;
+}
+
+.text-block {
+	background-color:blue;
+}
+
+.text-block h1{
+	font-size:60px;
+}
+
+.game-request h5{
+	margin:0px;
+}
