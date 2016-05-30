@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { validateMove, possibleMove } from '../possible-moves';
+import { validateMove, possibleMove } from '../../shared/possible-moves';
 
 import BoardTile from './BoardTile';
 

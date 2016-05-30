@@ -15,3 +15,18 @@ export function fetchGameState(gameId, callback)
       }
     });
 }
+
+export function postMove(gameId, x1, y1, x2, y2, callback)
+{
+  request
+    .post('/api/games/' + gameId + '/move')
+    .type('form')
+    .send({ fromx: x1, fromy: y1, tox: x2, toy: y2 })
+    .end(function (err, res) {
+      if (err) {
+        console.error(res);
+        return callback(err);
+      }
+      callback();
+    });
+}

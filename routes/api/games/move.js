@@ -1,6 +1,6 @@
 var mongodb = require('mongodb');
 
-var possibleMoves = require('../../possible-moves.js');
+var possibleMoves = require('../../../shared/possible-moves.js');
 var validateMove = possibleMoves.validateMove;
 
 function array1Dto2D(arr) {
@@ -68,7 +68,7 @@ module.exports = function(req, res, next) {
         }
       },
       $set: {
-        currentTurn: (game.currentTurn == 'white' ? 'black' : white)
+        currentTurn: (game.currentTurn == 'white' ? 'black' : 'white')
       }
     }, function(err, result) {
       if (err || (result.nModified === 0)) {
