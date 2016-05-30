@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./db');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
 var players = require('./routes/api/players');
@@ -18,13 +20,24 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({
+  secret: 'f340nxf23y234nhf38hniouef2',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(db());
 
 app.use('/', routes);
 app.use('/api/players', players);
 app.use('/api/games', games);
+
+var Player = require('./models/player');
+passport.use(Player.createStrategy());
+passport.serializeUser(Player.serializeUser());
+passport.deserializeUser(Player.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
