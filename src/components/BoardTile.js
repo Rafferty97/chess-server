@@ -6,7 +6,7 @@ import {
 	WHITE, BLACK,
   pieceType,
 	CHESS_PIECE_SRC, CHESS_PIECE_FILETYPE
-} from './constants';
+} from '../constants';
 
 export default class BoardTile extends Component {
   constructor() {

@@ -8,6 +8,7 @@ module.exports = function(locals) {
     '</head>',
     '<body>',
     '<div id="app"></div>',
+    '<script>window.__DATA = ' + JSON.stringify(locals) + ';</script>',
     '<script src="/bundle.js"></script>',
     '</body>',
     '</html>',

@@ -8,8 +8,10 @@ router.get('/', function(req, res, next) {
   res.send('Home page...');
 });
 
-router.get('/play/', function(req, res, next) {
-  res.send(gameView());
+router.get('/play/:id', function(req, res, next) {
+  res.send(gameView({
+    gameId: req.params.id
+  }));
 });
 
 module.exports = router;

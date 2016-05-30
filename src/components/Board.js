@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { validateMove, possibleMove } from './possible-moves';
+import { validateMove, possibleMove } from '../possible-moves';
 
 import BoardTile from './BoardTile';
 
@@ -10,7 +10,7 @@ import {
 	WHITE, BLACK,
 	pieceType, pieceColour,
 	INITIAL_BOARD
-} from './constants';
+} from '../constants';
 
 class Board extends Component {
 	constructor() {
