@@ -1,10 +1,8 @@
-h1 {
-	margin:0px;
-}
+
 
 .content-wrap {
 	margin:0px 5% 0px 5%;
-	max-width:1450px;
+	width:90%;
 }
 
 .sideandtext-wrap {
@@ -16,6 +14,9 @@ h1 {
 
 .side-bar, .text-wrap {
 	flex:1 100%;
+}
+.side-bar, .text-wrap, .controls{
+	border-radius:10px;
 }
 
 /*small screens*/
@@ -32,8 +33,10 @@ h1 {
 		padding:5%;
 	}
 	.text-wrap{order:1;}
-	.side-bar1 {order:2;}
-	.side-bar2 {order:3;}
+	.side-bar1 {order:2;
+	margin-right:5px;}
+	.side-bar2 {order:3;
+	margin-left:5px;}
 }
 
 /*large screen*/
@@ -43,45 +46,59 @@ h1 {
 	}
 	.side-bar{
 		flex:1 0px;
+		
 	}
 	
 	.text-wrap{
 		padding:5%;
 	}
 
-	.side-bar1 {order:1;}
+	.side-bar1 {
+		order:1;
+		margin-right:10px;
+	}
 	.text-wrap{order:2;}
-	.side-bar2 {order:3;}
+	.side-bar2 {
+		order:3;
+		margin-left:10px;
+		}
 }
 
 .side-bar {
-	background-color:brown;
+	/*background-color:brown;*/
 }
 
 .text-wrap {
-	background-color:grey;
+	background-color:white;
+	margin-bottom:10px;
+	
 }
 
 .controls{
 	padding:10px;
 	min-width:100px;
-}
-.game {
-	background-color:red;
+	background-color:#b3b3b3;
+	margin-bottom:10px;
+	
 }
 
-.player{
-	background-color:green;
-}
 
 .text-block {
-	background-color:blue;
+	/*background-color:blue;*/
+	
 }
 
 .text-block h1{
 	font-size:60px;
 }
-
-.game-request h5{
-	margin:0px;
+.chess{
+	margin:auto;
+	height:650px;
+	width:650px;
 }
+
+#extFrame {
+	border:0px;
+	height:100%;
+	width:100%;
+	}

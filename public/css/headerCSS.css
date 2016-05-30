@@ -1,0 +1,76 @@
+header{
+	margin-bottom:10px;
+}
+
+.login-bar-tabs{
+	justify-content:flex-end;
+	background-color:#333333;
+}
+.login-bar-tabs a{
+	padding:5px 10px;
+	text-decoration:none;
+	display:block;
+	color:white;
+}
+
+.login-bar-tabs a:hover{
+	background-color:#4d4d4d;
+}
+
+.nav-bar{
+	list-style-type:none;
+	margin:0px;
+	display:flex;
+	flex-flow:row wrap;
+}
+
+.nav-bar-tabs{
+	justify-content:center;
+	background-color:#b3b3b3;
+}
+
+.nav-bar-tabs a{
+	padding:10px 25px;
+	text-decoration:none;
+	display:block;
+	color:white;
+}
+.nav-bar-tabs a:hover{
+	background-color:#999999;
+}
+
+/*medium screens*/
+@media all and (max-width: 1100px) {
+  .nav-bar-tabs {
+    justify-content: space-around;
+  }
+  .nav-bar-tabs a{
+	padding:10px;
+  }
+  
+
+}
+
+/*small screen*/
+@media all and (max-width:600px){
+	.nav-bar-tabs{
+		padding:0px;	
+		flex-flow:column wrap;
+		flex-direction: column;
+	}
+	
+	.nav-bar-tabs a{
+		padding:10px;
+		text-align:center;
+		border-top:1px solid rgba(255,255,255,0.3);
+		border-bottom:1px solid rgba(0,0,0,0.1);
+	}
+	
+	.nav-bar-tabs li:last-of-type a {
+		border-bottom: none;
+	}
+	
+	.login-bar-tabs{
+		justify-content: space-around;
+	}
+}
