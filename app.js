@@ -22,9 +22,10 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(db());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(require('express-session')({
   secret: 'f340nxf23y234nhf38hniouef2',
   resave: false,
@@ -32,7 +33,6 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(db());
 
 app.use('/', routes);
 app.use('/api/players', players);

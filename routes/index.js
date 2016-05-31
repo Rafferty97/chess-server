@@ -7,8 +7,11 @@ var path = require('path');
 var Player = require('../models/player');
 var gameView = require('../views/game');
 
+router.get('/profile', function(req, res) {
+  res.render('profile', { user: req.user });
+});
+
 router.get('/play/:id', function(req, res) {
-  console.log(req.user);
   res.send(gameView({
     gameId: req.params.id
   }));
