@@ -10,6 +10,29 @@ router.get('/profile', function(req, res) {
   res.render('profile', { user: req.user });
 });
 
+router.get('/index', function(req, res) {
+  res.render('index');
+});
+
+router.get('/lobby', function(req, res) {
+  res.render('lobby');
+});
+router.get('/testing', function(req, res) {
+  res.render('testing');
+});
+router.get('/about', function(req, res) {
+  res.render('about');
+});
+router.get('/aboutus', function(req, res) {
+  res.render('aboutus');
+});
+router.get('/design', function(req, res) {
+  res.render('design');
+});
+router.get('/howto', function(req, res) {
+  res.render('howto');
+});
+
 router.get('/play/:id', function(req, res) {
   if (!req.user) {
     res.redirect('/');
