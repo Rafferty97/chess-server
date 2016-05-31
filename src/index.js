@@ -27,18 +27,31 @@ function array1Dto2D(arr) {
 /* ACTIONS */
 
 function movePiece(x1, y1, x2, y2) {
-  postMove(gameState.gameId, x1, y1, x2, y2, function (err) {
+  postMove(gameState.gameId, x1, y1, x2, y2, function (err, newState) {
     if (err) {
       console.error(err);
       return;
     }
     const s = gameState;
-    s.board[y2][x2] = s.board[y1][x1];
-    s.board[y1][x1] = EMPTY;
-    // TODO: Remove this!
-    s.player = s.player == 'white' ? 'black' : 'white';
-    render();
+    /* s.board[y2][x2] = s.board[y1][x1];
+    s.board[y1][x1] = EMPTY; */
+    setGameState(null, newState);
   });
+}
+
+/* Updates the game state */
+function setGameState(err, res) {
+  if (err) {
+    console.error(err);
+    gameState.loading = false;
+    render();
+    return;
+  }
+  gameState.board = array1Dto2D(res.board);
+  gameState.loading = false;
+  gameState.player = res.playerColour;
+  gameState.currentPlayer = res.currentTurn;
+  render();
 }
 
 /* Renders the game with an updated state */
@@ -52,17 +65,4 @@ function render() {
 
 /* Initial render and fetch game state */
 render();
-fetchGameState(gameState.gameId, function (err, res) {
-  if (err) {
-    console.error(err);
-    gameState.loading = false;
-    render();
-    return;
-  }
-  const tiles = res.boardHistory.pop().tiles;
-  gameState.board = array1Dto2D(tiles);
-  gameState.loading = false;
-  // TODO: Remove this!
-  gameState.player = res.currentTurn;
-  render();
-});
+fetchGameState(gameState.gameId, setGameState);

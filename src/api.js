@@ -27,6 +27,12 @@ export function postMove(gameId, x1, y1, x2, y2, callback)
         console.error(res);
         return callback(err);
       }
-      callback();
+      try {
+        const result = JSON.parse(res.text);
+        callback(null, result.gameState);
+      }
+      catch (e) {
+        callback('Could not parse JSON');
+      }
     });
 }

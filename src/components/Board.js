@@ -23,6 +23,13 @@ class Board extends Component {
 
 	handleClick(x, y) {
 		const seltile = this.state.selectedTile;
+		if (!this.props.hasTurn) {
+			this.setState({
+				selectedTile: {x: -1, y: -1},
+				availableTiles: []
+			});
+			return;
+		}
 		if (seltile.x == -1) {
 			if (pieceColour(this.props.board[y][x]) != this.props.playerColour) return;
 			this.setState({

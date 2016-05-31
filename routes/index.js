@@ -12,7 +12,7 @@ router.get('/profile', function(req, res) {
 
 router.get('/play/:id', function(req, res) {
   if (!req.user) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   }
   res.render('game', {
@@ -48,7 +48,7 @@ router.post('/login', function (req, res, next) {
       return;
     }
     req.logIn(user, function(err) {
-      return res.redirect('/');
+      return res.redirect('/profile');
     });
   })(req, res, next);
 });

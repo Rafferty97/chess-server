@@ -39,14 +39,20 @@ module.exports = function(req, res, next) {
     }
     // Check that the correct player is moving
     var pieceNum = board[fromy][fromx];
-    if (game.currentTurn == 'white' && (pieceNum == -1 || pieceNum >= 6)) {
-      return next({
+    if (game.currentTurn == 'white') {
+      if (pieceNum == -1 || pieceNum >= 6) return next({
         status: 400, message: 'A white piece was not selected; it is white\'s turn.'
       });
+      if (game.whitePlayer != req.user._id) return next({
+        status: 401, message: 'You are not the white player'
+      });
     }
-    if (game.currentTurn == 'black' && (pieceNum == -1 || pieceNum < 6)) {
-      return next({
+    if (game.currentTurn == 'black') {
+      if (pieceNum == -1 || pieceNum < 6) return next({
         status: 400, message: 'A black piece was not selected; it is black\'s turn.'
+      });
+      if (game.blackPlayer != req.user._id) return next({
+        status: 401, message: 'You are not the black player'
       });
     }
     // Validate the move
@@ -76,7 +82,14 @@ module.exports = function(req, res, next) {
         next({ message: 'Database error occured' });
       } else {
         res.send(JSON.stringify({
-          success: true
+          success: true,
+          gameState: {
+            whitePlayer: game.whitePlayer,
+            blackPlayer: game.blackPlayer,
+            board: array2Dto1D(board),
+            currentTurn: (game.currentTurn == 'white' ? 'black' : 'white'),
+            playerColour: game.currentTurn
+          }
         }));
       }
     });
