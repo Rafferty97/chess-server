@@ -9,15 +9,14 @@ var Player = require('../models/player');
 router.get('/profile', function(req, res) {
   res.render('profile', { user: req.user });
 });
-
-router.get('/index', function(req, res) {
-  res.render('index');
+router.get('/', function(req, res) {
+  res.render('index', {
+    username: req.user ? req.user.username : 'Not logged in'
+  });
 });
-
 router.get('/lobby', function(req, res) {
   res.render('lobby');
 });
-
 router.get('/controls/player', function(req, res) {
   res.render('controls/player', {userID: 'hello'});
 });
@@ -45,12 +44,16 @@ router.get('/howto', function(req, res) {
 
 router.get('/play/:id', function(req, res) {
   if (!req.user) {
-    res.redirect('/');
+    res.redirect('/login');
     return;
   }
   res.render('game', {
     data: { gameId: req.params.id }
   });
+});
+
+router.get('/register', function(req, res) {
+  res.render('register');
 });
 
 router.post('/register', function(req, res) {
@@ -80,7 +83,9 @@ router.post('/login', function (req, res, next) {
       res.render('login', { error: 'The username and password did not match' });
       return;
     }
-    res.redirect('/');
+    req.logIn(user, function(err) {
+      return res.redirect('/profile');
+    });
   })(req, res, next);
 });
 

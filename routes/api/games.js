@@ -28,13 +28,27 @@ router.get('/', function(req, res, next) {
 
 /* GET /games/:id */
 /* Returns the specified games */
-router.get('/:id', passport.authenticate(), function(req, res, next) {
-  console.log(req.user);
+router.get('/:id', function(req, res, next) {
+  if (!req.user) return next({
+    status: 401, message: 'Must be logged in'
+  });
   req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'
     });
-    res.send(JSON.stringify(game));
+    var player = '';
+    if (game.whitePlayer == req.user._id) player = 'white';
+    if (game.blackPlayer == req.user._id) player = 'black';
+    if (player === '') return next({
+      status: 401, message: 'You are not a player in this game'
+    });
+    res.send(JSON.stringify({
+      whitePlayer: game.whitePlayer,
+      blackPlayer: game.blackPlayer,
+      board: game.boardHistory.pop().tiles,
+      currentTurn: game.currentTurn,
+      playerColour: player
+    }));
   });
 });
 
@@ -43,6 +57,9 @@ router.get('/:id', passport.authenticate(), function(req, res, next) {
 router.post('/', function(req, res, next) {
   var reqPlayer = req.body.playerId;
   var otherPlayer = req.body.otherPlayer;
+  if (!req.user || req.user._id !== reqPlayer) return next({
+    status: 401, message: 'Not the requesting player'
+  });
   var game = new req.Game({
     whitePlayer: new mongodb.ObjectID(reqPlayer),
     blackPlayer: new mongodb.ObjectID(otherPlayer),
@@ -53,8 +70,6 @@ router.post('/', function(req, res, next) {
     ],
     currentTurn: 'white'
   });
-  console.log(reqPlayer);
-  console.log(otherPlayer);
   if (reqPlayer == otherPlayer) {
     next({
       status: 400,
@@ -94,7 +109,10 @@ router.post('/', function(req, res, next) {
 /* Accepts a game request */
 router.post('/:id/accept', function(req, res, next) {
   var gameId = req.params.id;
-  var playerId = req.body.playerId;
+  if (!req.user) return next({
+    status: 401, message: 'You must be logged in'
+  });
+  var playerId = req.user._id;
   req.Game.update({
     _id: new mongodb.ObjectID(gameId),
     whiteAccepted: true,
