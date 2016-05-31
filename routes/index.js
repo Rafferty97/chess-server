@@ -1,6 +1,8 @@
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
+var fs = require('fs');
+var path = require('path');
 
 var Player = require('../models/player');
 var gameView = require('../views/game');
@@ -16,7 +18,7 @@ router.get('/play/:id', function(req, res) {
   }));
 });
 
-router.post('/register', function (req, res) {
+router.post('/register', function(req, res) {
   Player.register(
     new Player({ username: req.body.username }),
     req.body.password,
@@ -32,8 +34,21 @@ router.post('/register', function (req, res) {
   );
 });
 
-router.post('/login', passport.authenticate('local'), function (req, res) {
-  res.redirect('/');
+router.get('/login', function(req, res) {
+  var page = fs.createReadStream(path.join(__dirname, '../views/login.html'));
+  page.pipe(res);
+});
+
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function(err, user) {
+    if (err) return next(err);
+    if (!user) {
+      var page = fs.createReadStream(path.join(__dirname, '../views/login.html'));
+      page.pipe(res);
+      return;
+    }
+    res.redirect('/');
+  })(req, res, next);
 });
 
 module.exports = router;
