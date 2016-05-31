@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title Playing | Chess with Friends
+    link(rel="stylesheet",type="text/css",href="/main-css.css")
+  body
+    #app
+    script!= 'window.__DATA = ' + JSON.stringify(data) + ';'
+    script(src="/bundle.js")

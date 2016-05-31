@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var db = require('./db');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var routes = require('./routes/index');
 var players = require('./routes/api/players');
@@ -12,19 +14,34 @@ var games = require('./routes/api/games');
 
 var app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(db());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(db());
+app.use(require('express-session')({
+  secret: 'f340nxf23y234nhf38hniouef2',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/api/players', players);
 app.use('/api/games', games);
+
+var Player = require('./models/player');
+passport.use(Player.createStrategy());
+passport.serializeUser(Player.serializeUser());
+passport.deserializeUser(Player.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
