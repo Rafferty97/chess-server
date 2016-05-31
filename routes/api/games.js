@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
 var async = require('async');
 var mongodb = require('mongodb');
 
@@ -27,7 +28,8 @@ router.get('/', function(req, res, next) {
 
 /* GET /games/:id */
 /* Returns the specified games */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', passport.authenticate(), function(req, res, next) {
+  console.log(req.user);
   req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'

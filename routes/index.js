@@ -7,12 +7,8 @@ var path = require('path');
 var Player = require('../models/player');
 var gameView = require('../views/game');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  res.send('Home page...');
-});
-
 router.get('/play/:id', function(req, res) {
+  console.log(req.user);
   res.send(gameView({
     gameId: req.params.id
   }));
@@ -35,16 +31,14 @@ router.post('/register', function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  var page = fs.createReadStream(path.join(__dirname, '../views/login.html'));
-  page.pipe(res);
+  res.render('login');
 });
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (err) return next(err);
     if (!user) {
-      var page = fs.createReadStream(path.join(__dirname, '../views/login.html'));
-      page.pipe(res);
+      res.render('login', { error: 'The username and password did not match' });
       return;
     }
     res.redirect('/');
