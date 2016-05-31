@@ -11,46 +11,11 @@ html
             h1 Play a new or existing game
 
           .side-bar.side-bar2
-            .controls.player
-              h3 Player Information
-              ul
-                li Username: User1
-                li Ranking: 1
+            include controls/player
           .side-bar.side-bar1
-            .controls.playing
-              h3 Current games
-              ul
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
-            .controls.requested
-              h3 Requested Games
-              ul
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept  
-                    a(href='test.html') Decline
-
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
+            include controls/playing
+            include controls/requested
+            
+            
       include ./includes/footer.jade
 

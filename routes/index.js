@@ -17,6 +17,16 @@ router.get('/index', function(req, res) {
 router.get('/lobby', function(req, res) {
   res.render('lobby');
 });
+
+router.get('/controls/player', function(req, res) {
+  res.render('controls/player', {userID: 'hello'});
+});
+router.get('/controls/playing', function(req, res) {
+  res.render('controls/playing');
+});
+router.get('/controls/requested', function(req, res) {
+  res.render('controls/requested');
+});
 router.get('/testing', function(req, res) {
   res.render('testing');
 });

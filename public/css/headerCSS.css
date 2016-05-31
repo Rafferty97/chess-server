@@ -17,6 +17,22 @@ header{
 	background-color:#4d4d4d;
 }
 
+.login-bar{
+  background-color:#333333;
+  display:flex;
+	flex-flow:row wrap;
+  justify-content:flex-end;
+  color:white;
+  padding:5px;
+}
+.login-bar label{
+  padding:0px 5px 0px 10px;
+}
+
+#subbut{
+  margin-left:5px;
+}
+
 .nav-bar{
 	list-style-type:none;
 	margin:0px;
@@ -47,12 +63,13 @@ header{
   .nav-bar-tabs a{
 	padding:10px;
   }
-  
-
 }
 
 /*small screen*/
 @media all and (max-width:600px){
+
+  
+  
 	.nav-bar-tabs{
 		padding:0px;	
 		flex-flow:column wrap;
