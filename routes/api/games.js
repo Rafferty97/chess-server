@@ -28,12 +28,15 @@ router.get('/', function(req, res, next) {
 
 /* GET /games/:id */
 /* Returns the specified games */
-router.get('/:id', passport.authenticate(), function(req, res, next) {
-  console.log(req.user);
+router.get('/:id', function(req, res, next) {
+  if (!user) return res.redirect('/');
   req.Game.findOne({_id: new mongodb.ObjectID(req.params.id)}, function (err, game) {
     if (err || (game === null)) return next({
       status: 404, message: 'Game does not exist'
     });
+    var player = '';
+    if (game.whitePlayer === user._id) player = 'white';
+    if (game.blackPlayer === user._id) player = 'black';
     res.send(JSON.stringify(game));
   });
 });
