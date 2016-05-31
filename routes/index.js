@@ -5,16 +5,19 @@ var fs = require('fs');
 var path = require('path');
 
 var Player = require('../models/player');
-var gameView = require('../views/game');
 
 router.get('/profile', function(req, res) {
   res.render('profile', { user: req.user });
 });
 
 router.get('/play/:id', function(req, res) {
-  res.send(gameView({
-    gameId: req.params.id
-  }));
+  if (!req.user) {
+    res.redirect('/');
+    return;
+  }
+  res.render('game', {
+    data: { gameId: req.params.id }
+  });
 });
 
 router.post('/register', function(req, res) {
