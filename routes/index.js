@@ -9,6 +9,38 @@ var Player = require('../models/player');
 router.get('/profile', function(req, res) {
   res.render('profile', { user: req.user });
 });
+router.get('/', function(req, res) {
+  res.render('index', {
+    username: req.user ? req.user.username : 'Not logged in'
+  });
+});
+router.get('/lobby', function(req, res) {
+  res.render('lobby');
+});
+router.get('/controls/player', function(req, res) {
+  res.render('controls/player', {userID: 'hello'});
+});
+router.get('/controls/playing', function(req, res) {
+  res.render('controls/playing');
+});
+router.get('/controls/requested', function(req, res) {
+  res.render('controls/requested');
+});
+router.get('/testing', function(req, res) {
+  res.render('testing');
+});
+router.get('/about', function(req, res) {
+  res.render('about');
+});
+router.get('/aboutus', function(req, res) {
+  res.render('aboutus');
+});
+router.get('/design', function(req, res) {
+  res.render('design');
+});
+router.get('/howto', function(req, res) {
+  res.render('howto');
+});
 
 router.get('/play/:id', function(req, res) {
   if (!req.user) {
@@ -18,6 +50,10 @@ router.get('/play/:id', function(req, res) {
   res.render('game', {
     data: { gameId: req.params.id }
   });
+});
+
+router.get('/register', function(req, res) {
+  res.render('register');
 });
 
 router.post('/register', function(req, res) {

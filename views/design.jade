@@ -1,0 +1,55 @@
+//- design.jade
+doctype html
+html
+  include ./includes/head.jade
+  body
+    .page-wrap
+      include ./includes/header.jade
+      .content-wrap
+        .sideandtext-wrap
+          .text-wrap
+            include ./text/design.jade
+          .side-bar.side-bar2
+            .controls.player
+              h3 Player Information
+              ul
+                li Username: User1
+                li Ranking: 1
+          .side-bar.side-bar1
+            .controls.playing
+              h3 Current games
+              ul
+                li
+                  a(href='play') game 1
+                li
+                  a(href='play') game 1
+                li
+                  a(href='play') game 1
+                li
+                  a(href='play') game 1
+            .controls.requested
+              h3 Requested Games
+              ul
+                li
+                  .game-request
+                    h5 User : brian is requesting to play
+                    a(href='play') Accept
+                    a(href='test.html') Decline
+                li
+                  .game-request
+                    h5 User : brian is requesting to play
+                    a(href='play') Accept
+                    a(href='test.html') Decline
+                li
+                  .game-request
+                    h5 User : brian is requesting to play
+                    a(href='play') Accept  
+                    a(href='test.html') Decline
+
+                li
+                  .game-request
+                    h5 User : brian is requesting to play
+                    a(href='play') Accept
+                    a(href='test.html') Decline
+      include ./includes/footer.jade
+

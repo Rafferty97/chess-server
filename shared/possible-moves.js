@@ -241,7 +241,7 @@ function possibleMove(board, x, y){
 	return moves;
 }
 
-function checkMate(board){
+/*function checkMate(board){
 	var checkM8 = true;
 	var moves = [];
 	var king = [[0,0],[0,0]];
@@ -261,7 +261,7 @@ function checkMate(board){
 
 	//my idea was something like run testCheck if true then run checkMate
 	//if checkMate is true then the player that just moved wins
-}
+}*/
 
 /*
 * Use this function after a move has been executed to test if it puts the opponent into a check.
@@ -270,6 +270,8 @@ function checkMate(board){
 * @param x index of piece just moved
 * @return true if opponent king is in check
 */
+
+/*
 function testCheck(board, y, x){
 	var player = pieceColour(board[y][x]);
 	var posmove = possibleMove(board,x,y);
@@ -278,7 +280,7 @@ function testCheck(board, y, x){
 		if(pieceNo(board[m[0]][m[1]]) == KING){ return true;}
 	}
 	return false;
-}
+}*/
 /*
 * Function to test if a move is valid
 * @param board the game board
