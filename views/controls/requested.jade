@@ -1,24 +1,12 @@
 .controls.requested
               h3 Requested Games
+              -usernames= [1,2,3,4]
               ul
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept  
-                    a(href='test.html') Decline
-
-                li
-                  .game-request
-                    h5 User : brian is requesting to play
-                    a(href='play') Accept
-                    a(href='test.html') Decline
+                each val in usernames
+                  li
+                    .game-request
+                      h5= 'User : ' + val + ' is requesting to play '
+                      button(class='acceptGame').
+                        Accept
+                      button(class='declineGame').
+                        Decline

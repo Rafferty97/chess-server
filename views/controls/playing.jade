@@ -1,11 +1,9 @@
 .controls.playing
+              -gameIDs = [0,1,2,3,4]
               h3 Current games
               ul
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
-                li
-                  a(href='play') game 1
+                each gameID in gameIDs
+                  li
+                    .current-game
+                      a(href='/play/' + gameID)='game ' + gameID
+                  
