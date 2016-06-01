@@ -37,8 +37,8 @@ router.get('/:id', function(req, res, next) {
       status: 404, message: 'Game does not exist'
     });
     var player = '';
-    if (game.whitePlayer == req.user._id) player = 'white';
-    if (game.blackPlayer == req.user._id) player = 'black';
+    if (game.whitePlayer == req.user.username) player = 'white';
+    if (game.blackPlayer == req.user.username) player = 'black';
     if (player === '') return next({
       status: 401, message: 'You are not a player in this game'
     });
@@ -58,11 +58,11 @@ router.post('/', function(req, res, next) {
   if (!req.user) return next({
     status: 401, message: 'Not logged in'
   });
-  var reqPlayer = req.user._id;
+  var reqPlayer = req.user.username;
   var otherPlayer = req.body.otherPlayer;
   var game = new req.Game({
-    whitePlayer: new mongodb.ObjectID(reqPlayer),
-    blackPlayer: new mongodb.ObjectID(otherPlayer),
+    whitePlayer: reqPlayer,
+    blackPlayer: otherPlayer,
     whiteAccepted: true,
     blackAccepted: false,
     boardHistory: [
@@ -79,14 +79,14 @@ router.post('/', function(req, res, next) {
   }
   async.series([
     function (callback) {
-      req.Player.findOne({_id: new mongodb.ObjectID(reqPlayer)}, function (err, doc) {
+      req.Player.findOne({username: reqPlayer}, function (err, doc) {
         if (doc === null)
           callback('Requesting player does not exist');
         else callback(null);
       });
     },
     function (callback) {
-      req.Player.findOne({_id: new mongodb.ObjectID(otherPlayer)}, function (err, doc) {
+      req.Player.findOne({username: otherPlayer}, function (err, doc) {
         if (doc === null)
           callback('Other player does not exist');
         else callback(null);
@@ -112,12 +112,12 @@ router.post('/:id/accept', function(req, res, next) {
   if (!req.user) return next({
     status: 401, message: 'You must be logged in'
   });
-  var playerId = req.user._id;
+  var playerId = req.user.username;
   req.Game.update({
     _id: new mongodb.ObjectID(gameId),
     whiteAccepted: true,
     blackAccepted: false,
-    blackPlayer: new mongodb.ObjectID(playerId)
+    blackPlayer: playerId
   }, {
     $set: {
       blackAccepted: true

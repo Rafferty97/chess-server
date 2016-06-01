@@ -1,11 +1,17 @@
 .controls.requested
+  h3 Pending Games
+  ul
+    each game in pendingGames
+      li
+        .game-request
+          h5= 'Waiting on ' + game.otherPlayer + ' to accept your request'
+.controls.requested
   h3 Requested Games
   ul
     each game in invitedGames
       li
         .game-request
           h5= 'User : ' + game.otherPlayer + ' is requesting to play '
-          button(class='acceptGame').
-            Accept
-          button(class='declineGame').
-            Decline
+          a(href!='/accept-game/'+game._id)
+            button(class='acceptGame').
+              Accept

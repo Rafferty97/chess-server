@@ -1,4 +1,9 @@
 .controls.playing
+  if loggedin
+    form(action="/request-game",method="POST")
+      h3 Start a new game
+      input(type="text",name="otherPlayer",placeholder="Other player's username")
+      input(type="submit",value="Request")
   h3 Current games
   ul
     each game in activeGames
