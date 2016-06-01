@@ -55,11 +55,11 @@ router.get('/:id', function(req, res, next) {
 /* POST /games/ */
 /* Creates a new game request */
 router.post('/', function(req, res, next) {
-  var reqPlayer = req.body.playerId;
-  var otherPlayer = req.body.otherPlayer;
-  if (!req.user || req.user._id !== reqPlayer) return next({
-    status: 401, message: 'Not the requesting player'
+  if (!req.user) return next({
+    status: 401, message: 'Not logged in'
   });
+  var reqPlayer = req.user._id;
+  var otherPlayer = req.body.otherPlayer;
   var game = new req.Game({
     whitePlayer: new mongodb.ObjectID(reqPlayer),
     blackPlayer: new mongodb.ObjectID(otherPlayer),

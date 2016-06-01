@@ -6,9 +6,6 @@ var path = require('path');
 
 var Player = require('../models/player');
 
-router.get('/profile', function(req, res) {
-  res.render('profile', { user: req.user });
-});
 router.get('/', function(req, res) {
   res.render('index', {
     username: req.user ? req.user.username : 'Not logged in'
@@ -76,7 +73,7 @@ router.post('/login', function (req, res, next) {
       return;
     }
     req.logIn(user, function(err) {
-      return res.redirect('/profile');
+      return res.redirect('/');
     });
   })(req, res, next);
 });

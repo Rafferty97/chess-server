@@ -51,6 +51,7 @@ function setGameState(err, res) {
   gameState.loading = false;
   gameState.player = res.playerColour;
   gameState.currentPlayer = res.currentTurn;
+  console.log(gameState);
   render();
 }
 
