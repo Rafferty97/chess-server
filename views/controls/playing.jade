@@ -1,9 +1,12 @@
 .controls.playing
-              -gameIDs = [0,1,2,3,4]
-              h3 Current games
-              ul
-                each gameID in gameIDs
-                  li
-                    .current-game
-                      a(href='/play/' + gameID)='game ' + gameID
-                  
+  if loggedin
+    form(action="/request-game",method="POST")
+      h3 Start a new game
+      input(type="text",name="otherPlayer",placeholder="Other player's username")
+      input(type="submit",value="Request")
+  h3 Current games
+  ul
+    each game in activeGames
+      li
+        .current-game
+          a(href='/play/' + game._id)= 'Game with ' + game.otherPlayer

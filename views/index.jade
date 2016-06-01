@@ -9,13 +9,33 @@ html
         .sideandtext-wrap
           .text-wrap
             h1 Play a new or existing game
+            br
+            h3 How to register
+            p
+              | Go to&nbsp;
+              a(href="/register") the registration page
+              &nbsp;to register.
+            h3 How to sign in
+            p You can sign-in using the form in the top-right corner.
+            h3 How to initiate a game
+            p.
+              Type the username of the player you want to play against in the field to the
+              left under "start a new game", and click "request".
+              The request will appear under the "pending games" list until
+              the other player accepts it.
+            h3 How to accept a game
+            p.
+              In the "requested games" list, find the game you wish to accept
+              and click "accept".
+            h3 How to play a game
+            p.
+              In the current games list, find the game you wish to play and click on it.
 
           .side-bar.side-bar2
             include controls/player
           .side-bar.side-bar1
             include controls/playing
             include controls/requested
-            
-            
-      include ./includes/footer.jade
 
+
+      include ./includes/footer.jade

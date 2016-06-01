@@ -43,7 +43,7 @@ module.exports = function(req, res, next) {
       if (pieceNum == -1 || pieceNum >= 6) return next({
         status: 400, message: 'A white piece was not selected; it is white\'s turn.'
       });
-      if (game.whitePlayer != req.user._id) return next({
+      if (game.whitePlayer != req.user.username) return next({
         status: 401, message: 'You are not the white player'
       });
     }
@@ -51,7 +51,7 @@ module.exports = function(req, res, next) {
       if (pieceNum == -1 || pieceNum < 6) return next({
         status: 400, message: 'A black piece was not selected; it is black\'s turn.'
       });
-      if (game.blackPlayer != req.user._id) return next({
+      if (game.blackPlayer != req.user.username) return next({
         status: 401, message: 'You are not the black player'
       });
     }

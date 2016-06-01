@@ -1,5 +1,0 @@
-.controls.player
-              h3 Player Information
-              ul
-                li= 'Username:' + (userID.length == 0 ? 'Not Logged In':userID)
-                li Ranking: 1
