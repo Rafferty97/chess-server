@@ -1,0 +1,13 @@
+.controls.playing
+              -gameIDs = [0,1,2,3,4]
+              h3 Current games
+              ul
+                each gameID in gameIDs
+                  li
+                    .game-request
+                      h5= ' Continue Playing against '  + val 
+                      .buttons
+                        button(class='acceptGame').
+                          Play
+                      
+                  

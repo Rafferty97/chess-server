@@ -82,6 +82,23 @@
 	
 }
 
+.controls ul{
+  list-style-type:none;
+  padding:0px;
+}
+.controls ul li{
+  margin-bottom:5px;
+}
+.game-request{
+  display:flex;
+  flex-flow:row wrap;
+	justify-content:space-between;
+  width:100%;
+  background-color:#cccccc;
+  padding:2px;
+}
+
+
 
 .text-block {
 	/*background-color:blue;*/
