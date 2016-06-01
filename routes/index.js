@@ -7,14 +7,55 @@ var path = require('path');
 var Player = require('../models/player');
 
 router.get('/', function(req, res) {
-  res.render('index', {
-    username: req.user ? req.user.username : 'Not logged in'
-  });
+  if (!req.user) {
+    res.render('index', {
+      username: req.user ? req.user.username : 'Not logged in',
+      activeGames: [],
+      pendingGames: [],
+      invitedGames: []
+    });
+  } else {
+    req.Game.find({
+      $or: [
+        { whitePlayer: req.user._id },
+        { blackPlayer: req.user._id }
+      ]
+    }, { _id: 1, whitePlayer: 1, blackPlayer: 1, blackAccepted: 1, whiteAccepted: 1 }, function (err, games) {
+      var activeGames = [], pendingGames = [], invitedGames = [];
+      for (var i=0; i<games.length; i++) {
+        var g = games[i];
+        var playerAccepted = (g.whitePlayer == req.user._id) ? g.whiteAccepted : g.blackAccepted;
+        var otherAccepted = (g.blackPlayer == req.user._id) ? g.whiteAccepted : g.blackAccepted;
+        if (playerAccepted && otherAccepted) {
+          activeGames.push({
+            _id: g._id,
+            otherPlayer: (g.whitePlayer == req.user._id) ? g.blackPlayer : g.whitePlayer
+          });
+        }
+        else if (playerAccepted) {
+          pendingGames.push({
+            _id: g._id,
+            otherPlayer: (g.whitePlayer == req.user._id) ? g.blackPlayer : g.whitePlayer
+          });
+        } else {
+          invitedGames.push({
+            _id: g._id,
+            otherPlayer: (g.whitePlayer == req.user._id) ? g.blackPlayer : g.whitePlayer
+          });
+        }
+      }
+      res.render('index', {
+        username: req.user ? req.user.username : 'Not logged in',
+        activeGames: activeGames,
+        pendingGames: pendingGames,
+        invitedGames: invitedGames
+      });
+    });
+  }
 });
-router.get('/lobby', function(req, res) {
+/*router.get('/lobby', function(req, res) {
   res.render('lobby');
 });
-
 router.get('/testing', function(req, res) {
   res.render('testing');
 });
@@ -29,7 +70,7 @@ router.get('/design', function(req, res) {
 });
 router.get('/howto', function(req, res) {
   res.render('howto');
-});
+});*/
 
 router.get('/play/:id', function(req, res) {
   if (!req.user) {

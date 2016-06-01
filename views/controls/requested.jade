@@ -1,11 +1,10 @@
 .controls.requested
   h3 Requested Games
-  -usernames= [1,2,3,4]
   ul
-    each val in usernames
+    each game in invitedGames
       li
         .game-request
-          h5= 'User : ' + val + ' is requesting to play '
+          h5= 'User : ' + game.otherPlayer + ' is requesting to play '
           button(class='acceptGame').
             Accept
           button(class='declineGame').
